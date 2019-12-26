@@ -1,7 +1,5 @@
 {
-	"host": [{
-			"Spec": {
-				"HardwareDetails": {
+	"HardwareDetails": {
 					"boot": {
 						"current_boot_mode": "uefi",
 						"pxe_interface": "e4:43:4b:45:60:ca"
@@ -18,38 +16,140 @@
 					"cpu": {
 						"count": 48,
 						"frequency": "3700.0000",
-						"flags": ["fpu", "vme", "de", "pse", "tsc", "msr", "pae", "mce", "cx8", "apic", "sep", "mtrr", "pge", "mca", "cmov", "pat", "pse36", "clflush", "dts", "acpi", "mmx", "fxsr", "sse", "sse2", "ss", "ht", "tm", "pbe", "syscall", "nx", "pdpe1gb", "rdtscp", "lm", "constant_tsc", "art", "arch_perfmon", "pebs", "bts", "rep_good", "nopl", "xtopology", "nonstop_tsc", "aperfmperf", "eagerfpu", "pni", "pclmulqdq", "dtes64", "monitor", "ds_cpl", "vmx", "smx", "est", "tm2", "ssse3", "sdbg", "fma", "cx16", "xtpr", "pdcm", "pcid", "dca", "sse4_1", "sse4_2", "x2apic", "movbe", "popcnt", "tsc_deadline_timer", "aes", "xsave", "avx", "f16c", "rdrand", "lahf_lm", "abm", "3dnowprefetch", "epb", "cat_l3", "cdp_l3", "invpcid_single", "intel_ppin", "intel_pt", "ssbd", "mba", "ibrs", "ibpb", "stibp", "tpr_shadow", "vnmi", "flexpriority", "ept", "vpid", "fsgsbase", "tsc_adjust", "bmi1", "hle", "avx2", "smep", "bmi2", "erms", "invpcid", "rtm", "cqm", "mpx", "rdt_a", "avx512f", "avx512dq", "rdseed", "adx", "smap", "clflushopt", "clwb", "avx512cd", "avx512bw", "avx512vl", "xsaveopt", "xsavec", "xgetbv1", "cqm_llc", "cqm_occup_llc", "cqm_mbm_total", "cqm_mbm_local", "dtherm", "ida", "arat", "pln", "pts", "pku", "ospke", "md_clear", "spec_ctrl", "intel_stibp", "flush_l1d"],
+						"flags": ["intel_stibp", "flush_l1d"],
 						"model_name": "Intel(R) Xeon(R) Gold 6126 CPU @ 2.60GHz",
-						"architecture": "x86_64"
+						"architecture": "x86_64",
+						"numa_topology": {
+							"nics": [{
+							  "numa_node": 0,
+							  "name": "p2p1"
+							}, {
+							  "numa_node": 0,
+							  "name": "p2p2"
+							}, {
+							  "numa_node": 0,
+							  "name": "p1p2"
+							}, {
+							  "numa_node": 0,
+							  "name": "p1p1"
+							}, {
+							  "numa_node": 0,
+							  "name": "em4"
+							}, {
+							  "numa_node": 0,
+							  "name": "em2"
+							}, {
+							  "numa_node": 0,
+							  "name": "em1"
+							}, {
+							  "numa_node": 0,
+							  "name": "em3"
+							}],
+							"ram": [{
+							  "numa_node": 0,
+							  "size_kb": 99289532
+							}, {
+							  "numa_node": 1,
+							  "size_kb": 100663296
+							}],
+							"cpus": [{
+							  "numa_node": 1,
+							  "thread_siblings": [3, 27],
+							  "cpu": 6
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [20, 44],
+							  "cpu": 10
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [8, 32],
+							  "cpu": 3
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [23, 47],
+							  "cpu": 11
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [9, 33],
+							  "cpu": 2
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [15, 39],
+							  "cpu": 14
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [7, 31],
+							  "cpu": 5
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [22, 46],
+							  "cpu": 11
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [10, 34],
+							  "cpu": 4
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [21, 45],
+							  "cpu": 10
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [5, 29],
+							  "cpu": 1
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [0, 24],
+							  "cpu": 0
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [19, 43],
+							  "cpu": 13
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [11, 35],
+							  "cpu": 4
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [18, 42],
+							  "cpu": 12
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [6, 30],
+							  "cpu": 5
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [17, 41],
+							  "cpu": 9
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [1, 25],
+							  "cpu": 0
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [12, 36],
+							  "cpu": 8
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [4, 28],
+							  "cpu": 1
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [14, 38],
+							  "cpu": 13
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [2, 26],
+							  "cpu": 6
+							}, {
+							  "numa_node": 1,
+							  "thread_siblings": [13, 37],
+							  "cpu": 8
+							}, {
+							  "numa_node": 0,
+							  "thread_siblings": [16, 40],
+							  "cpu": 9
+							}]
+						  }
 					}
 				}
-			}
-		},
-		{
-			"Spec": {
-				"HardwareDetails": {
-					"boot": {
-						"current_boot_mode": "idk",
-						"pxe_interface": "e4:43:4b:45:60:ca"
-					},
-					"system_vendor": {
-						"serial_number": "qwefqwef",
-						"product_name": "qwefqwefqewfqwef)",
-						"manufacturer": "Dell Inc."
-					},
-					"memory": {
-						"physical_mb": 12124,
-						"total": 1241424124
-					},
-					"cpu": {
-						"count": 48,
-						"frequency": "3700.0000",
-						"flags": ["vnmi", "flexpriority", "ept", "vpid", "fsgsbase", "tsc_adjust", "bmi1", "hle", "avx2", "smep", "bmi2", "erms", "invpcid", "rtm", "cqm", "mpx", "rdt_a", "avx512f", "avx512dq", "rdseed", "adx", "smap", "clflushopt", "clwb", "avx512cd", "avx512bw", "avx512vl", "xsaveopt", "xsavec", "xgetbv1", "cqm_llc", "cqm_occup_llc", "cqm_mbm_total", "cqm_mbm_local", "dtherm", "ida", "arat", "pln", "pts", "pku", "ospke", "md_clear", "spec_ctrl", "intel_stibp", "flush_l1d"],
-						"model_name": "Intel(R)",
-						"architecture": "x86_64"
-					}
-				}
-			}
-		}
-	]
 }
