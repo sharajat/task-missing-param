@@ -2,14 +2,40 @@ package main
 
 import (
 	"fmt"
+	"task-missing-param/result"
 	"task-missing-param/utils"
 )
 
+func getHardwareDetails(data result.Data) {
+	Firmware := utils.GetFirmwareDetails(data.Extra.Firmware)
+	SystemVendor := utils.GetSystemVendorDetails(data.Inventory.SystemVendor)
+	RAMMebibytes := data.MemoryMB
+	NIC := utils.GetNICDetails(data.Inventory.Interfaces, data.AllInterfaces, data.Extra.Network)
+	Storage := utils.GetStorageDetails(data.Inventory.Disks)
+	CPU := utils.GetCPUDetails(data.Inventory.CPU)
+	Hostname := data.Inventory.Hostname
+	//CurrentBootMode := data.Inventory.Boot.CurrentBootMode
+	utils.GetNumaDetails(data.NumaTopology)
+	fmt.Println("")
+	fmt.Println("")
+
+	fmt.Println("")
+
+	fmt.Println("")
+
+	fmt.Println(Firmware)
+	fmt.Println(SystemVendor)
+	fmt.Println(RAMMebibytes)
+	fmt.Println(NIC)
+	fmt.Println(Storage)
+	fmt.Println(CPU)
+	fmt.Println(Hostname)
+	fmt.Println("CurrentBootMode")
+	//fmt.Println(Numa)
+}
+
 func main() {
 	fmt.Println("hello world")
-	BootDetails := utils.ExtractBootDetails()
-	CPUDetails := utils.ExtractCPUDetails()
-	fmt.Printf("\nBoot Details-:\nCurrentBootMode: %s\nPxeInterface: %s\n", BootDetails.CurrentBootMode, BootDetails.PxeInterface)
-	fmt.Printf("\nCPU Details-:\ncount: %d\nfrequency: %s\nflags:  %s\nmodel_name: %s\narchitecture: %s\n", CPUDetails.Count, CPUDetails.Frequency, CPUDetails.Flags, CPUDetails.ModelName, CPUDetails.Architecture)
-	fmt.Println(CPUDetails.NumaTopology)
+	introspectiondata := utils.Gopherextract()
+	getHardwareDetails(introspectiondata)
 }
