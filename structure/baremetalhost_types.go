@@ -32,7 +32,6 @@ type CPU struct {
 	ClockMegahertz ClockSpeed `json:"clockMegahertz"`
 	Flags          []string   `json:"flags"`
 	Count          int        `json:"count"`
-	ThreadSiblings [][]int    `json:"thread_siblings"`
 }
 
 // Storage describes one storage device (disk, SSD, etc.) on the host.
@@ -107,8 +106,7 @@ type NIC struct {
 	VLANID VLANID `json:"vlanId"`
 
 	// Whether the NIC is PXE Bootable
-	PXE     bool     `json:"pxe"`
-	NumaNic []string `json:"name"`
+	PXE bool `json:"pxe"`
 }
 
 // Firmware describes the firmware on the host.
@@ -139,26 +137,46 @@ type HardwareSystemVendor struct {
 // HardwareDetails collects all of the information about hardware
 // discovered on the host.
 type HardwareDetails struct {
-	SystemVendor HardwareSystemVendor `json:"systemVendor"`
-	Firmware     Firmware             `json:"firmware"`
-	//RAMMebibytes    int                  `json:"ramMebibytes"`
-	//NIC             []NIC                `json:"nics"`
-	Storage []Storage `json:"storage"`
-	//CPU             CPU                  `json:"cpu"`
-	Hostname        string `json:"hostname"`
-	CurrentBootMode string `json:"currentbootmode"`
-	NodeDetails     NodeDetails
-	NumaNodes       []NumaNodes
+	SystemVendor    HardwareSystemVendor `json:"systemVendor"`
+	Firmware        Firmware             `json:"firmware"`
+	RAMMebibytes    int                  `json:"ramMebibytes"`
+	NIC             []NIC                `json:"nics"`
+	Storage         []Storage            `json:"storage"`
+	CPU             CPU                  `json:"cpu"`
+	Hostname        string               `json:"hostname"`
+	CurrentBootMode string               `json:"currentbootmode"`
+	NumaTopology    []NumaTopology       `json:"numa_topology"`
+	//NodeDetails  NodeDetails
+	//NumaNodes    []NumaNodes
+}
+type NumaTopology struct {
+	NumaNodeID  int         `json:"numa_node"`
+	Numadetails Numadetails `json:"numa_topology"`
 }
 
-type NodeDetails struct {
-	CPU CPU   `json:"cpu"`
-	NIC []NIC `json:"nics"`
-	//NumaNics	[]string
-	RAMMebibytes int `json:"ramMebibytes"`
+type Numadetails struct {
+	Nics           []string `json:"nics"`
+	RAM            int      `json:"ram"`
+	ThreadSiblings [][]int  `json:"cpus"`
+}
+type NumaNICS struct {
+	Name []string `json:"name"`
+}
+type NumaRAM struct {
+	SizeKb int `json:"size_kb"`
+}
+type NumaCPU struct {
+	ThreadSiblings [][]int `json:"thread_siblings"`
 }
 
-type NumaNodes struct {
-	NumaNodeId      int
-	NumaNodeDetails NodeDetails
-}
+//type NodeDetails struct {
+//	CPU          CPU    `json:"cpu"`
+//	NIC          []NIC  	`json:"nics"`
+//	//NumaNics	[]string
+//	RAMMebibytes int    `json:"ramMebibytes"`
+//}
+//
+//type NumaNodes struct {
+//	NumaNodeId      int
+//	NumaNodeDetails NodeDetails
+//}

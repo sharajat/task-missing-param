@@ -15,7 +15,7 @@ func getHardwareDetails(data result.Data) {
 	CPU := utils.GetCPUDetails(data.Inventory.CPU)
 	Hostname := data.Inventory.Hostname
 	//CurrentBootMode := data.Inventory.Boot.CurrentBootMode
-	utils.GetNumaDetails(data.NumaTopology)
+	Numa := utils.GetNumaDetails(data.NumaTopology)
 	fmt.Println("")
 	fmt.Println("")
 
@@ -31,7 +31,7 @@ func getHardwareDetails(data result.Data) {
 	fmt.Println(CPU)
 	fmt.Println(Hostname)
 	fmt.Println("CurrentBootMode")
-	//fmt.Println(Numa)
+	fmt.Printf("NUMA : %+v", Numa)
 }
 
 func main() {

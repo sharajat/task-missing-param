@@ -195,17 +195,82 @@ func GetStorageDetails(diskdata []result.RootDiskType) []structure.Storage {
 //	return numacpu
 //}
 
-func GetNumaDetails(numa result.NumaTopology) {
-	//numaNode := new(structure.NumaNodes)
-	numaNode := structure.NumaNodes{}
-	//numanic := structure.NIC{}
-	for _, value := range numa.NumaRAM {
+//func GetNumaDetails(numa result.NumaTopology) {
+//	//numaNode := new(structure.NumaNodes)
+//	numaNode := structure.NumaNodes{}
+//	//numanic := structure.NIC{}
+//	for _ , value := range numa.NumaRAM{
+//		id := value.NumaNodeID
+//		numaNode.NumaNodeId = id
+//		var nicNames []string
+//		var cpuSiblings [][]int
+//		//getNumaNic(id,numa.NumaNics)
+//		//getNumacpu(id,numa.NumaCPU)
+//		for _, nic := range numa.NumaNics {
+//			if nic.NumaNodeID == id {
+//				nicNames = append(nicNames, nic.Name)
+//			}
+//		}
+//		for _, cpu := range numa.NumaCPU {
+//			if cpu.NumaNodeID == id {
+//				cpuSiblings = append(cpuSiblings, cpu.ThreadSiblings)
+//			}
+//		}
+//
+//		numaNode.NumaNodeDetails.CPU.ThreadSiblings = cpuSiblings
+//		//numanic.NumaNic = nicNames
+//		//for _, value := range numaNode.NumaNodeDetails.NIC{
+//		//	value.NumaNic = nicNames
+//		//}
+//
+//		fmt.Printf("NUMANODE: %+v", numaNode)
+//		fmt.Println("")
+//
+//		//NodeIDs = append(NodeIDs,value.NumaNodeID)
+//	}
+//}
+
+//func getnumanics(nics []result.NumaNICS) []structure.NumaNICS {
+//	nnics := make([]structure.NumaNICS, len(nics))
+//	for i, value := range nics {
+//		nnics[i] = structure.NumaNICS{
+//			NumaNodeID: value.NumaNodeID,
+//			Name:       value.Name,
+//		}
+//	}
+//	return nnics
+//}
+
+//func getnumaram(ram []result.NumaRAM) []structure.NumaRAM {
+//	nram := make([]structure.NumaRAM, len(ram))
+//	for i, value := range ram {
+//		nram[i] = structure.NumaRAM{
+//			NumaNodeID: value.NumaNodeID,
+//			SizeKb:     value.SizeKb,
+//		}
+//	}
+//	return nram
+//}
+//
+//func getnumacpu(cpu []result.NumaCPU) []structure.NumaCPU {
+//	ncpu := make([]structure.NumaCPU, len(cpu))
+//	for i, value := range cpu {
+//		ncpu[i] = structure.NumaCPU{
+//			NumaNodeID:     value.NumaNodeID,
+//			CPUID:          value.CPUID,
+//			ThreadSiblings: value.ThreadSiblings,
+//		}
+//	}
+//	return ncpu
+//}
+//
+func GetNumaDetails(numa result.NumaTopology) []structure.NumaTopology {
+	numaNode := make([]structure.NumaTopology, len(numa.NumaRAM))
+	for i, value := range numa.NumaRAM {
 		id := value.NumaNodeID
-		numaNode.NumaNodeId = id
+		ram := value.SizeKb
 		var nicNames []string
 		var cpuSiblings [][]int
-		//getNumaNic(id,numa.NumaNics)
-		//getNumacpu(id,numa.NumaCPU)
 		for _, nic := range numa.NumaNics {
 			if nic.NumaNodeID == id {
 				nicNames = append(nicNames, nic.Name)
@@ -216,16 +281,11 @@ func GetNumaDetails(numa result.NumaTopology) {
 				cpuSiblings = append(cpuSiblings, cpu.ThreadSiblings)
 			}
 		}
-
-		numaNode.NumaNodeDetails.CPU.ThreadSiblings = cpuSiblings
-		//numanic.NumaNic = nicNames
-		//for _, value := range numaNode.NumaNodeDetails.NIC{
-		//	value.NumaNic = nicNames
-		//}
-
-		fmt.Printf("NUMANODE: %+v", numaNode)
-		fmt.Println("")
-
-		//NodeIDs = append(NodeIDs,value.NumaNodeID)
+		numaNode[i].NumaNodeID = id
+		numaNode[i].Numadetails.ThreadSiblings = cpuSiblings
+		numaNode[i].Numadetails.Nics = nicNames
+		numaNode[i].Numadetails.RAM = ram
 	}
+	return numaNode
+
 }
