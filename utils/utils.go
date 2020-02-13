@@ -92,8 +92,11 @@ func GetSystemVendorDetails(vendor result.SystemVendorType) structure.HardwareSy
 	}
 }
 
-func GetCPUDetails(cpudata result.CPUType) structure.CPU {
+func GetCPUDetails(cpudata result.CPUType, numa []structure.NumaTopology) structure.CPU {
 	var freq float64
+	//var x result.Data
+	//numa := GetNumaDetails(x.NumaTopology)
+	//fmt.Println(numa)
 	fmt.Sscanf(cpudata.Frequency, "%f", &freq)
 	sort.Strings(cpudata.Flags)
 	cpu := structure.CPU{
@@ -102,8 +105,8 @@ func GetCPUDetails(cpudata result.CPUType) structure.CPU {
 		ClockMegahertz: structure.ClockSpeed(freq) * structure.MegaHertz,
 		Count:          cpudata.Count,
 		Flags:          cpudata.Flags,
+		NumaTopology:   numa,
 	}
-
 	return cpu
 }
 
@@ -267,8 +270,7 @@ func GetStorageDetails(diskdata []result.RootDiskType) []structure.Storage {
 func GetNumaDetails(numa result.NumaTopology) []structure.NumaTopology {
 	numaNode := make([]structure.NumaTopology, len(numa.NumaRAM))
 	for i, value := range numa.NumaRAM {
-		id := value.NumaNodeID
-		ram := value.SizeKb
+		id, ram := value.NumaNodeID, value.SizeKb
 		var nicNames []string
 		var cpuSiblings [][]int
 		for _, nic := range numa.NumaNics {

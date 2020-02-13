@@ -27,11 +27,12 @@ const (
 
 // CPU describes one processor on the host.
 type CPU struct {
-	Arch           string     `json:"arch"`
-	Model          string     `json:"model"`
-	ClockMegahertz ClockSpeed `json:"clockMegahertz"`
-	Flags          []string   `json:"flags"`
-	Count          int        `json:"count"`
+	Arch           string         `json:"arch"`
+	Model          string         `json:"model"`
+	ClockMegahertz ClockSpeed     `json:"clockMegahertz"`
+	Flags          []string       `json:"flags"`
+	Count          int            `json:"count"`
+	NumaTopology   []NumaTopology `json:"numa_topology"`
 }
 
 // Storage describes one storage device (disk, SSD, etc.) on the host.
@@ -145,7 +146,7 @@ type HardwareDetails struct {
 	CPU             CPU                  `json:"cpu"`
 	Hostname        string               `json:"hostname"`
 	CurrentBootMode string               `json:"currentbootmode"`
-	NumaTopology    []NumaTopology       `json:"numa_topology"`
+	//NumaTopology   []NumaTopology   `json:"numa_topology"`
 	//NodeDetails  NodeDetails
 	//NumaNodes    []NumaNodes
 }
