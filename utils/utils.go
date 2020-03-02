@@ -12,37 +12,6 @@ import (
 	"os"
 )
 
-// ExtractBootDetails extracts json data of boot
-//func ExtractBootDetails() structure.Boot {
-//
-//	jsonFile, err := os.Open("introspectedData.json")
-//	if err != nil {
-//		fmt.Println(err)
-//	}
-//	defer jsonFile.Close()
-//	jsonString, _ := ioutil.ReadAll(jsonFile)
-//	result := structure.Data{}
-//	json.Unmarshal([]byte(jsonString), &result)
-//	return result.HardwareDetails.Boot
-//
-//}
-
-// ExtractCPUDetails extracts json data of cpu
-//func ExtractCPUDetails() structure.CPU {
-//
-//	jsonFile, err := os.Open("introspectedData.json")
-//	if err != nil {
-//		fmt.Println(err)
-//	}
-//	defer jsonFile.Close()
-//	jsonString, _ := ioutil.ReadAll(jsonFile)
-//	result := structure.Data{}
-//	json.Unmarshal([]byte(jsonString), &result)
-//	return result.HardwareDetails.CPU
-//
-//}
-//var som result.Data
-
 func Gopherextract() result.Data {
 	jsonFile, _ := os.Open("introspectedData.json")
 	defer jsonFile.Close()
@@ -92,11 +61,8 @@ func GetSystemVendorDetails(vendor result.SystemVendorType) structure.HardwareSy
 	}
 }
 
-func GetCPUDetails(cpudata result.CPUType, numa []structure.NumaTopology) structure.CPU {
+func GetCPUDetails(cpudata result.CPUType, topology result.NumaTopology) structure.CPU {
 	var freq float64
-	//var x result.Data
-	//numa := GetNumaDetails(x.NumaTopology)
-	//fmt.Println(numa)
 	fmt.Sscanf(cpudata.Frequency, "%f", &freq)
 	sort.Strings(cpudata.Flags)
 	cpu := structure.CPU{
@@ -105,7 +71,7 @@ func GetCPUDetails(cpudata result.CPUType, numa []structure.NumaTopology) struct
 		ClockMegahertz: structure.ClockSpeed(freq) * structure.MegaHertz,
 		Count:          cpudata.Count,
 		Flags:          cpudata.Flags,
-		NumaTopology:   numa,
+		NumaTopology:   GetNumaDetails(topology),
 	}
 	return cpu
 }
@@ -172,101 +138,6 @@ func GetStorageDetails(diskdata []result.RootDiskType) []structure.Storage {
 	return storage
 }
 
-//func getNumaNic(id int, numa []result.NumaNICS) structure.NIC {
-//	var nicNames []string
-//	numanic := structure.NIC{}
-//	for _, nic := range numa{
-//		if nic.NumaNodeID == id {
-//			nicNames = append(nicNames, nic.Name)
-//		}
-//	}
-//	numanic.NumaNic = nicNames
-//	fmt.Println(numanic.NumaNic)
-//	return numanic
-//}
-//
-//func getNumacpu(id int, numa []result.NumaCPU) structure.CPU {
-//	var cpuSiblings [][]int
-//	numacpu := structure.CPU{}
-//	for _, cpu := range numa{
-//		if cpu.NumaNodeID == id {
-//			cpuSiblings = append(cpuSiblings, cpu.ThreadSiblings)
-//		}
-//	}
-//	numacpu.ThreadSiblings = cpuSiblings
-//	fmt.Println(numacpu.ThreadSiblings)
-//	return numacpu
-//}
-
-//func GetNumaDetails(numa result.NumaTopology) {
-//	//numaNode := new(structure.NumaNodes)
-//	numaNode := structure.NumaNodes{}
-//	//numanic := structure.NIC{}
-//	for _ , value := range numa.NumaRAM{
-//		id := value.NumaNodeID
-//		numaNode.NumaNodeId = id
-//		var nicNames []string
-//		var cpuSiblings [][]int
-//		//getNumaNic(id,numa.NumaNics)
-//		//getNumacpu(id,numa.NumaCPU)
-//		for _, nic := range numa.NumaNics {
-//			if nic.NumaNodeID == id {
-//				nicNames = append(nicNames, nic.Name)
-//			}
-//		}
-//		for _, cpu := range numa.NumaCPU {
-//			if cpu.NumaNodeID == id {
-//				cpuSiblings = append(cpuSiblings, cpu.ThreadSiblings)
-//			}
-//		}
-//
-//		numaNode.NumaNodeDetails.CPU.ThreadSiblings = cpuSiblings
-//		//numanic.NumaNic = nicNames
-//		//for _, value := range numaNode.NumaNodeDetails.NIC{
-//		//	value.NumaNic = nicNames
-//		//}
-//
-//		fmt.Printf("NUMANODE: %+v", numaNode)
-//		fmt.Println("")
-//
-//		//NodeIDs = append(NodeIDs,value.NumaNodeID)
-//	}
-//}
-
-//func getnumanics(nics []result.NumaNICS) []structure.NumaNICS {
-//	nnics := make([]structure.NumaNICS, len(nics))
-//	for i, value := range nics {
-//		nnics[i] = structure.NumaNICS{
-//			NumaNodeID: value.NumaNodeID,
-//			Name:       value.Name,
-//		}
-//	}
-//	return nnics
-//}
-
-//func getnumaram(ram []result.NumaRAM) []structure.NumaRAM {
-//	nram := make([]structure.NumaRAM, len(ram))
-//	for i, value := range ram {
-//		nram[i] = structure.NumaRAM{
-//			NumaNodeID: value.NumaNodeID,
-//			SizeKb:     value.SizeKb,
-//		}
-//	}
-//	return nram
-//}
-//
-//func getnumacpu(cpu []result.NumaCPU) []structure.NumaCPU {
-//	ncpu := make([]structure.NumaCPU, len(cpu))
-//	for i, value := range cpu {
-//		ncpu[i] = structure.NumaCPU{
-//			NumaNodeID:     value.NumaNodeID,
-//			CPUID:          value.CPUID,
-//			ThreadSiblings: value.ThreadSiblings,
-//		}
-//	}
-//	return ncpu
-//}
-//
 func GetNumaDetails(numa result.NumaTopology) []structure.NumaTopology {
 	numaNode := make([]structure.NumaTopology, len(numa.NumaRAM))
 	for i, value := range numa.NumaRAM {

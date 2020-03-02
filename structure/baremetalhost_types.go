@@ -146,9 +146,6 @@ type HardwareDetails struct {
 	CPU             CPU                  `json:"cpu"`
 	Hostname        string               `json:"hostname"`
 	CurrentBootMode string               `json:"currentbootmode"`
-	//NumaTopology   []NumaTopology   `json:"numa_topology"`
-	//NodeDetails  NodeDetails
-	//NumaNodes    []NumaNodes
 }
 type NumaTopology struct {
 	NumaNodeID  int         `json:"numa_node"`
@@ -160,24 +157,3 @@ type Numadetails struct {
 	RAM            int      `json:"ram"`
 	ThreadSiblings [][]int  `json:"cpus"`
 }
-type NumaNICS struct {
-	Name []string `json:"name"`
-}
-type NumaRAM struct {
-	SizeKb int `json:"size_kb"`
-}
-type NumaCPU struct {
-	ThreadSiblings [][]int `json:"thread_siblings"`
-}
-
-//type NodeDetails struct {
-//	CPU          CPU    `json:"cpu"`
-//	NIC          []NIC  	`json:"nics"`
-//	//NumaNics	[]string
-//	RAMMebibytes int    `json:"ramMebibytes"`
-//}
-//
-//type NumaNodes struct {
-//	NumaNodeId      int
-//	NumaNodeDetails NodeDetails
-//}
